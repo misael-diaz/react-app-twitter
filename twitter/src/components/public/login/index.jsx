@@ -114,7 +114,8 @@ const Login = () => {
 	    // add link to sign up page here
 	  }
 	  <p className="helper-text center">
-	    Don't have an account? Join free today
+	    Don't have an account?
+	  <Link to="/signup" className="link"> Join free today </Link>
 	  </p>
 	</footer>
       </div>
@@ -147,9 +148,9 @@ References:
 /*
 
 TODO:
-[ ] add signup page
+[x] add signup page
 [ ] add password recovery page
-[ ] link login page to signup and password-recovery pages
+[ ] link login page to [x] signup and [ ] password-recovery pages
 [ ] add the following temporary features for testing:
     [ ] save the user credentials in the local storage (during signup)
     [ ] read stored user credentials in the local storage for validating user input

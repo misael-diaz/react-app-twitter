@@ -29,8 +29,15 @@ const Public = () => {
 	  </header>
 	  <section>
 	    <p><Link to="/login" className="secondary-button">Login Now</Link></p>
-	    <p>Don't have an account? Join free today</p>
-	    <p className="secondary-button smaller-vspace">Sign Up</p>
+	    <p>
+	      Don't have an account?
+	      <Link to="/signup" className="link"> Join free today </Link>
+	    </p>
+	    <p>
+	      <Link to="/signup" className="secondary-button smaller-vspace">
+		Sign Up
+	      </Link>
+	    </p>
 	  </section>
 	</div>
       </div>
