@@ -9,7 +9,7 @@ const Public = () => {
   return (
     <main className="index-container">
       <div className="left">
-	<img 
+	<img
 	  className="big-logo"
 	  src={ whitelogo }
 	  alt="react-logo"
@@ -20,7 +20,7 @@ const Public = () => {
 	  <header>
 	    <p className="center">
 	      <img
-		className="logo main-logo" 
+		className="logo main-logo"
 		src={ logo }
 		alt="react-logo"
 	      />
