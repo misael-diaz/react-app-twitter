@@ -68,7 +68,7 @@ const Login = () => {
 		  (event) => setUser(
 		    {
 		      username: event.target.value,
-		      password: ""
+		      password: (user.password)? user.password : ""
 		    }
 		  )
 		}
