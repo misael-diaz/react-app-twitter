@@ -44,6 +44,16 @@ const Signup = () => {
 
     }
 
+    const { password, confirmation } = user;
+
+    if (password !== confirmation)
+    {
+      const cls = "error";
+      const msg = "passwords do not match";
+      setMessage({ class: cls, content: msg });
+      return;
+    }
+
     const cls = "success";
     const msg = "account has been been created";
     setMessage({ class: cls, content: msg });
