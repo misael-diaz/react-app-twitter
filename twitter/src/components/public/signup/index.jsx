@@ -77,11 +77,8 @@ const Signup = () => {
 		onChange={
 		  (event) => setUser(
 		    {
-		      name: event.target.value,
-		      email: (user.email)? user.email : "",
-		      username: (user.username)? user.username : "",
-		      password: (user.password)? user.password : "",
-		      confirmation: (user.confirmation)? user.confirmation : ""
+		      ...user,
+		      name: event.target.value
 		    }
 		  )
 		}
@@ -96,11 +93,8 @@ const Signup = () => {
 		onChange={
 		  (event) => setUser(
 		    {
-		      name: (user.name)? user.name : "",
-		      email: event.target.value,
-		      username: (user.username)? user.username : "",
-		      password: (user.password)? user.password : "",
-		      confirmation: (user.confirmation)? user.confirmation : ""
+		      ...user,
+		      email: event.target.value
 		    }
 		  )
 		}
@@ -115,11 +109,8 @@ const Signup = () => {
 		onChange={
 		  (event) => setUser(
 		    {
-		      name: (user.name)? user.name : "",
-		      email: (user.email)? user.email : "",
-		      username: event.target.value,
-		      password: (user.password)? user.password : "",
-		      confirmation: (user.confirmation)? user.confirmation : ""
+		      ...user,
+		      username: event.target.value
 		    }
 		  )
 		}
@@ -134,11 +125,8 @@ const Signup = () => {
 		onChange={
 		  (event) => setUser(
 		    {
-		      name: (user.name)? user.name : "",
-		      email: (user.email)? user.email : "",
-		      username: (user.username)? user.username : "",
-		      password: event.target.value,
-		      confirmation: (user.confirmation)? user.confirmation : ""
+		      ...user,
+		      password: event.target.value
 		    }
 		  )
 		}
@@ -153,10 +141,7 @@ const Signup = () => {
 		onChange={
 		  (event) => setUser(
 		    {
-		      name: (user.name)? user.name : "",
-		      email: (user.email)? user.email : "",
-		      username: (user.username)? user.username : "",
-		      password: (user.password)? user.password : "",
+		      ...user,
 		      confirmation: event.target.value
 		    }
 		  )
@@ -206,5 +191,6 @@ by the Free Software Foundation, either version 3 of the License, or
 
 References:
 [0] https://github.com/jestrade/cec-twitter
+[1] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in
 
 */
