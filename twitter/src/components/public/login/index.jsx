@@ -1,17 +1,32 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Note: using React's logo instead of Twitter's for demo purposes
 import logo from "../../../assets/img/react-logo.svg";
-
-// temporary user credentials for testing
-const USERNAME = "admin";
-const PASSWORD = "4dm1n";
 
 const Login = () => {
 
   const [user, setUser] = useState({ username: "", password: "" });
   const [message, setMessage] = useState({});
+
+  useEffect( () => {
+
+    const item = localStorage.getItem("user");
+
+    if (item != null)
+    {
+
+      const storedUser = JSON.parse(item);
+      const { login } = storedUser;
+
+      if (login)
+      {
+	window.location = "/home";
+      }
+
+    }
+
+  }, []);
 
   const handleClick = () => {
 
@@ -25,11 +40,32 @@ const Login = () => {
       return;
     }
 
-    if (username === USERNAME && password === PASSWORD)
+    const item = localStorage.getItem("user");
+
+    if (item == null)
+    {
+      const cls = "error";
+      const msg = "invalid credentials";
+      setMessage({ class: cls, content: msg });
+      return;
+    }
+
+    const storedUser = JSON.parse(item);
+
+    if (username === storedUser.username && password === storedUser.password)
     {
       const cls = "success";
       const msg = `welcome back ${username}!`;
       setMessage({ class: cls, content: msg });
+
+      storedUser.login = true;
+      localStorage.setItem("user", JSON.stringify(storedUser));
+
+      const delay = 2500;
+      setTimeout( () => {
+	window.location = "/home";
+      }, delay);
+
     }
     else
     {
@@ -141,6 +177,7 @@ by the Free Software Foundation, either version 3 of the License, or
 
 References:
 [0] https://github.com/jestrade/cec-twitter
+[1] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON
 
 */
 
@@ -151,9 +188,9 @@ TODO:
 [x] add signup page
 [ ] add password recovery page
 [ ] link login page to [x] signup and [ ] password-recovery pages
-[ ] add the following temporary features for testing:
-    [ ] save the user credentials in the local storage (during signup)
-    [ ] read stored user credentials in the local storage for validating user input
+[x] add the following temporary features for testing:
+    [x] save the user credentials in the local storage (during signup)
+    [x] read stored user credentials in the local storage for validating user input
 [ ] fetch user credentials from the back-end (implies removing them from local storage)
 
 */

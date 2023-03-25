@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Note: using React's logo instead of Twitter's for demo purposes
 import logo from "../../../assets/img/react-logo.svg";
@@ -12,11 +12,31 @@ const Signup = () => {
       email: "",
       username: "",
       password: "",
-      confirmation: ""		// password-confirmation
+      confirmation: "",		// password-confirmation
+      login: false
     }
   );
 
   const [message, setMessage] = useState({});
+
+  useEffect( () => {
+
+    const item = localStorage.getItem("user");
+
+    if (item != null)
+    {
+
+      const storedUser = JSON.parse(item);
+      const { login } = storedUser;
+
+      if (login)
+      {
+	window.location = "/home";
+      }
+
+    }
+
+  }, []);
 
   const handleClick = () => {
 
@@ -57,6 +77,13 @@ const Signup = () => {
     const cls = "success";
     const msg = "account has been been created";
     setMessage({ class: cls, content: msg });
+
+    localStorage.setItem("user", JSON.stringify(user));
+
+    const delay = 2500;
+    setTimeout( () => {
+      window.location = "/login";
+    }, delay);
 
   };
 
@@ -202,5 +229,6 @@ by the Free Software Foundation, either version 3 of the License, or
 References:
 [0] https://github.com/jestrade/cec-twitter
 [1] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in
+[2] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON
 
 */
