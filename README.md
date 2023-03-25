@@ -2,6 +2,10 @@
 
 ## About
 This is my first front-end development project.
+
+The purpose of this project is purely academic, learn React by developing a Twitter-like
+webpage.
+
 Currently, the React App has Public, Sign Up, Login, and Home Pages.
 User info is saved in the local storage for the time being.
 
