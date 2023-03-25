@@ -1,4 +1,4 @@
-// import { Link } from "react-router-dom"; // shall add links in a future commit
+import { Link } from "react-router-dom";
 
 // Note: using React's logo instead of Twitter's for demo purposes
 import logo from "../../assets/img/react-logo.svg";
@@ -9,7 +9,7 @@ const Public = () => {
   return (
     <main className="index-container">
       <div className="left">
-	<img 
+	<img
 	  className="big-logo"
 	  src={ whitelogo }
 	  alt="react-logo"
@@ -20,7 +20,7 @@ const Public = () => {
 	  <header>
 	    <p className="center">
 	      <img
-		className="logo main-logo" 
+		className="logo main-logo"
 		src={ logo }
 		alt="react-logo"
 	      />
@@ -28,9 +28,16 @@ const Public = () => {
 	    <h1 className="subtitle">Welcome to Twitter</h1>
 	  </header>
 	  <section>
-	    <p className="secondary-button">Login Now</p>
-	    <p>Don't have an account? Join free today</p>
-	    <p className="secondary-button smaller-vspace">Sign Up</p>
+	    <p><Link to="/login" className="secondary-button">Login Now</Link></p>
+	    <p>
+	      Don't have an account?
+	      <Link to="/signup" className="link"> Join free today </Link>
+	    </p>
+	    <p>
+	      <Link to="/signup" className="secondary-button smaller-vspace">
+		Sign Up
+	      </Link>
+	    </p>
 	  </section>
 	</div>
       </div>
