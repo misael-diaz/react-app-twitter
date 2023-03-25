@@ -17,6 +17,11 @@ This project has been bootstrapped with
 Learn React by checking out its
 [Getting Started Documentation](https://create-react-app.dev/docs/getting-started)
 
+## Requirements
+
+React requires Node version 14.0.0 or higher. If you wish to install it locally follow
+the steps given in this [wiki](wiki/Installing-latest-Node.js-via-NPM-locally).
+
 ## Starting the React Twitter App
 
 You can start (a development build of) the React App by
