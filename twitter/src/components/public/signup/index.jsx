@@ -122,7 +122,7 @@ const Signup = () => {
 	      />
 	    </p>
 	    <p className="email">
-	      <label>Username</label>
+	      <label>Email</label>
 	      <input
 		type="email"
 		className="input"
