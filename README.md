@@ -21,7 +21,7 @@ Learn React by checking out its
 
 React requires Node version 14.0.0 or higher. If you need to update, follow
 the steps in this
-[wiki](https://github.com/misael-diaz/react-app-twitter/wiki/Installing-latest-Node.js-via-NPM-locally).
+[wiki](https://github.com/misael-diaz/react-app-twitter/wiki/Updating-NodeJS).
 
 ## Starting the React Twitter App
 
