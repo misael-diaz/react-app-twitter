@@ -8,7 +8,8 @@ const Signup = () => {
 
   const [user, setUser] = useState(
     {
-      name: "",
+      firstName: "",
+      lastName: "",
       email: "",
       username: "",
       password: "",
@@ -130,10 +131,19 @@ const Signup = () => {
 
     }
 
-    if (isInvalidName(user.name))
+    if (isInvalidName(user.firstName))
     {
       const cls = "error";
-      const msg = "Name is not capitalized or has numbers and/or special characters";
+      const msg = "First Name is not capitalized or has numbers and/or special " +
+	"characters";
+      setMessage({ class: cls, content: msg });
+      return;
+    }
+
+    if (isInvalidName(user.lastName))
+    {
+      const cls = "error";
+      const msg = "Last Name is not capitalized or has numbers and/or special characters";
       setMessage({ class: cls, content: msg });
       return;
     }
@@ -217,16 +227,32 @@ const Signup = () => {
 	<section>
 	  <form className="form">
 	    <p className="name">
-	      <label>Name</label>
+	      <label>First Name</label>
 	      <input
 		type="text"
 		className="input"
-		placeholder="Name"
+		placeholder="First Name"
 		onChange={
 		  (event) => setUser(
 		    {
 		      ...user,
-		      name: event.target.value
+		      firstName: event.target.value
+		    }
+		  )
+		}
+	      />
+	    </p>
+	    <p className="name">
+	      <label>Last Name</label>
+	      <input
+		type="text"
+		className="input"
+		placeholder="Last Name"
+		onChange={
+		  (event) => setUser(
+		    {
+		      ...user,
+		      lastName: event.target.value
 		    }
 		  )
 		}
