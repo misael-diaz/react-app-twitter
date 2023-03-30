@@ -7,26 +7,105 @@ import logo from "../../../assets/img/react-logo.svg";
 const Login = () => {
 
   const [user, setUser] = useState({ username: "", password: "" });
+  const [loginRequest, setLoginRequest] = useState(false);
+  const [response, setResponse] = useState({});
   const [message, setMessage] = useState({});
 
   useEffect( () => {
 
-    const item = localStorage.getItem("user");
+    const get = async () => {
+      // issues the GET request to test the communication with the REST API
 
-    if (item != null)
+      const url = `${process.env.REACT_APP_TWITTER_API_URI}/`;
+      const res = await fetch(url);
+      const data = await res.json();
+      console.log(`data: ${data}`);
+
+    };
+
+    const post = async () => {
+
+      const url = `${process.env.REACT_APP_TWITTER_API_URI}/api/users/login`;
+      const credentials = JSON.stringify({user: user});
+
+      const res = await fetch(url, {
+	method: "POST",
+	mode: "cors",
+	headers: {
+	  "Content-Type": "application/json"
+	},
+	body: credentials
+      });
+
+      const stat = res.status;
+      const data = await res.json();
+      setResponse({ stat: stat, data: data });
+
+    };
+
+    const hasLoggedIn = localStorage.getItem("login");
+
+    if (hasLoggedIn != null)
     {
-
-      const storedUser = JSON.parse(item);
-      const { login } = storedUser;
-
-      if (login)
+      if (hasLoggedIn)
       {
 	window.location = "/home";
+      }
+    }
+    else
+    {
+
+      get();
+
+      if (loginRequest)
+      {
+
+	post();
+
+	if (Object.hasOwn(response, 'stat'))
+	{
+
+	  const { stat, data } = response;
+
+	  if (stat === 500)
+	  {
+	    const { message } = data;
+	    const cls = "error";
+	    const msg = message;
+	    setMessage({ class: cls, content: msg });
+	    setLoginRequest(false);
+	    setResponse({});
+	    return;
+	  }
+
+	  if (stat === 200)
+	  {
+
+	    const { token } = data;
+	    localStorage.setItem("token", JSON.stringify(token));
+
+	    const { message } = data;
+	    const cls = "success";
+	    const msg = `${message}, welcome back ${user.username}!`;
+	    setMessage({ class: cls, content: msg });
+
+	    const delay = 2500;
+	    setTimeout( () => {
+	      window.location = "/home";
+	    }, delay);
+
+	    setLoginRequest(false);
+	    setResponse({});
+
+	  }
+
+	}
+
       }
 
     }
 
-  }, []);
+  }, [user, loginRequest, response]);
 
   const handleClick = () => {
 
@@ -40,39 +119,7 @@ const Login = () => {
       return;
     }
 
-    const item = localStorage.getItem("user");
-
-    if (item == null)
-    {
-      const cls = "error";
-      const msg = "invalid credentials";
-      setMessage({ class: cls, content: msg });
-      return;
-    }
-
-    const storedUser = JSON.parse(item);
-
-    if (username === storedUser.username && password === storedUser.password)
-    {
-      const cls = "success";
-      const msg = `welcome back ${username}!`;
-      setMessage({ class: cls, content: msg });
-
-      storedUser.login = true;
-      localStorage.setItem("user", JSON.stringify(storedUser));
-
-      const delay = 2500;
-      setTimeout( () => {
-	window.location = "/home";
-      }, delay);
-
-    }
-    else
-    {
-      const cls = "error";
-      const msg = "invalid credentials";
-      setMessage({ class: cls, content: msg });
-    }
+    setLoginRequest(true);
 
   };
 
@@ -103,8 +150,8 @@ const Login = () => {
 		onChange={
 		  (event) => setUser(
 		    {
+		      ...user,
 		      username: event.target.value,
-		      password: (user.password)? user.password : ""
 		    }
 		  )
 		}
@@ -119,7 +166,7 @@ const Login = () => {
 		onChange={
 		  (event) => setUser(
 		    {
-		      username: (user.username)? user.username : "",
+		      ...user,
 		      password: event.target.value
 		    }
 		  )
@@ -178,6 +225,8 @@ by the Free Software Foundation, either version 3 of the License, or
 References:
 [0] https://github.com/jestrade/cec-twitter
 [1] https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON
+[2] https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+[3] https://create-react-app.dev/docs/adding-custom-environment-variables/
 
 */
 
@@ -191,6 +240,6 @@ TODO:
 [x] add the following temporary features for testing:
     [x] save the user credentials in the local storage (during signup)
     [x] read stored user credentials in the local storage for validating user input
-[ ] fetch user credentials from the back-end (implies removing them from local storage)
+[x] fetch user credentials from the back-end (implies removing them from local storage)
 
 */

@@ -4,26 +4,23 @@ const Private = () => {
 
   useEffect( () => {
 
-    const item = localStorage.getItem("user");
+    const item = localStorage.getItem("token");
 
     if (item == null)
     {
       window.location = "/";
     }
-
-    const storedUser = JSON.parse(item);
-    const { login } = storedUser;
-
-    if (!login)
+    else
     {
-      window.location = "/";
+      localStorage.setItem("login", true);
     }
 
   }, []);
 
   const handleClick = () => {
 
-    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    localStorage.removeItem("login");
     window.location = "/";
 
   };
