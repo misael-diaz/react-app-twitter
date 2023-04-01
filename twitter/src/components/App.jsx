@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Public from "./public";
 import Login from "./public/login";
-//import Signup from "./public/signup";
+import Signup from "./public/signup";
 import Private from "./private";
 
 import "../css/style.css";
@@ -16,12 +16,10 @@ const router = createBrowserRouter([
     path: '/login',
     element: <Login/>
   },
-  /*
   {
     path: '/signup',
     element: <Signup/>
   },
-  */
   {
     path: '/home',
     element: <Private/>

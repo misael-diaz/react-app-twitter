@@ -13,31 +13,87 @@ const Signup = () => {
       email: "",
       username: "",
       password: "",
-      confirmation: "",		// password-confirmation
-      login: false
+      confirmation: ""		// password-confirmation
     }
   );
 
+  const [signUpRequest, setSignUpRequest] = useState(false);
+  const [response, setResponse] = useState({});
   const [message, setMessage] = useState({});
 
   useEffect( () => {
 
-    const item = localStorage.getItem("user");
+    const post = async () => {
+      const { confirmation, ...userInfo  } = user;
+      const url = `${process.env.REACT_APP_TWITTER_API_URI}/api/users/signup`;
+      const info = JSON.stringify({ user: userInfo });
 
-    if (item != null)
+      const res = await fetch(url, {
+	method: "POST",
+	mode: "cors",
+	headers: {
+	  "Content-Type": "application/json"
+	},
+	body: info
+      });
+
+      const stat = res.status;
+      const data = await res.json();
+      setResponse({ stat: stat, data: data });
+
+    };
+
+    const hasLoggedIn = localStorage.getItem("login");
+
+    if (hasLoggedIn != null)
     {
 
-      const storedUser = JSON.parse(item);
-      const { login } = storedUser;
-
-      if (login)
+      if (hasLoggedIn)
       {
 	window.location = "/home";
       }
 
     }
+    else
+    {
+      if (signUpRequest)
+      {
+	post();
 
-  }, []);
+	if ( Object.hasOwn(response, 'stat') )
+	{
+	  const { stat, data } = response;
+
+	  if (stat === 500)
+	  {
+	    const { message } = data;
+	    const cls = "error";
+	    const msg = message;
+	    setMessage({ class: cls, content: msg });
+	    setSignUpRequest(false);
+	    setResponse({});
+	    return;
+	  }
+
+	  if (stat === 200)
+	  {
+	    const { message } = data;
+	    const cls = "success";
+	    const msg = message;
+	    setMessage({ class: cls, content: msg });
+
+	    const delay = 2500;
+	    setTimeout( () => {
+	      window.location = "/login";
+	    }, delay);
+
+	    setSignUpRequest(false);
+	    setResponse({});
+	  }
+	}
+      }
+    }
+  }, [user, response, signUpRequest]);
 
   const hasWhitespace = (str) => {
 
@@ -195,16 +251,7 @@ const Signup = () => {
       return;
     }
 
-    const cls = "success";
-    const msg = "account has been been created";
-    setMessage({ class: cls, content: msg });
-
-    localStorage.setItem("user", JSON.stringify(user));
-
-    const delay = 2500;
-    setTimeout( () => {
-      window.location = "/login";
-    }, delay);
+    setSignUpRequest(true);
 
   };
 
