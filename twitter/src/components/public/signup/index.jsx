@@ -105,61 +105,6 @@ const Signup = () => {
     }
   }, [user, response, signUpRequest]);
 
-  /*
-  const hasWhitespace = (str) => {
-
-    const regex = /\s/;
-    const match = (str.match(regex) || []);
-    const spaces = match.length;
-    return (spaces !== 0);
-
-  };
-
-  const isInvalidName = (str) => {
-
-    const regex = /([A-Z][a-z]+)/;
-    const match = (str.match(regex) || [[]]);
-    return (match[0].length !== str.length);
-
-  };
-
-  const isInvalidPassword = (str) => {
-
-    // eslint-disable-next-line
-    const regex = /([-\.\w]+)/;
-    const match = (str.match(regex) || [[]]);
-    return (match[0].length !== str.length);
-
-  };
-
-  const isWeakPassword = (str) => {
-    // checks for minimum password requirements
-
-    const numbers = (str.match(/(?:[0-9])/g) || []).length;
-    const symbols = (str.match(/(?:[-\._])/g) || []).length;	// eslint-disable-line
-    const capital = (str.match(/(?:[A-Z])/g) || []).length;
-
-    return (numbers === 0 || symbols === 0 || capital === 0)? true : false;
-
-  };
-
-  const isInvalidEmail = (str) => {
-    // Returns true if the email does not have the form:
-    //
-    // 		firstName[.lastName][0-9]*@emailProvider.com[.country]
-    //
-    // where the .lastName, the digits, and the .country are optional sub-strings.
-    // Note: see reference [5] for a more general regular expression
-
-    const email = str.toLowerCase();
-    // eslint-disable-next-line
-    const re = /([a-z]+([-\._][a-z]+){0,1}[0-9]*@([a-z]+\.)+[a-z]{3}(\.[a-z]{2}){0,1})/;
-    const match = (email.match(re) || [[]]);
-    return (match[0].length !== str.length);
-
-  };
-  */
-
   const handleClick = () => {
 
     for (const prop in user)
