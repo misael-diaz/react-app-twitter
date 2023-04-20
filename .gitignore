@@ -1,2 +1,7 @@
+node/
 node_modules/
+*/.gitignore
+*.env
 *.svg
+*.swp
+*.sh
