@@ -3,6 +3,16 @@ import { useState, useEffect } from "react";
 
 // Note: using React's logo instead of Twitter's for demo purposes
 import logo from "../../../assets/img/react-logo.svg";
+import utils from "../../../utils";
+
+const {
+  hasWhitespace,
+  isInvalidName,
+  isInvalidEmail,
+  isInvalidPassword,
+  isWeakPassword
+} = utils;
+
 
 const Signup = () => {
 
@@ -95,6 +105,7 @@ const Signup = () => {
     }
   }, [user, response, signUpRequest]);
 
+  /*
   const hasWhitespace = (str) => {
 
     const regex = /\s/;
@@ -147,6 +158,7 @@ const Signup = () => {
     return (match[0].length !== str.length);
 
   };
+  */
 
   const handleClick = () => {
 
@@ -252,6 +264,7 @@ const Signup = () => {
     }
 
     setSignUpRequest(true);
+    console.log(signUpRequest);
 
   };
 
